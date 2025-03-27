@@ -57,8 +57,8 @@ const Demo = () => {
     loadMore(pageRef.current);
   }, []);
 
-  const handleScroll: React.UIEventHandler<HTMLElement> = e => {
-    if (hasMore && !loading && e.currentTarget.scrollHeight - e.currentTarget.scrollTop === size.height) {
+  const handleScrollToEnd = () => {
+    if (hasMore && !loading) {
       pageRef.current = pageRef.current + 1;
       loadMore(pageRef.current);
     }
@@ -80,7 +80,7 @@ const Demo = () => {
       <VirtuosoGrid
         style={{ height: size.height }}
         totalCount={list.length}
-        onScroll={handleScroll}
+        endReached={handleScrollToEnd}
         components={{
           List,
           Item: ({ children, ...props }) => (
