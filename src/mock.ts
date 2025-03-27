@@ -3,11 +3,9 @@ export interface Data {
   name: string;
 }
 
-const data = Array(402).fill(1);
+const data = Array(102).fill(1);
 
 export const getData = (page: number, pageSize: number = 10) => {
-  const total = 400;
-
   return new Promise<{ list: Data[]; total: number }>(resolve => {
     setTimeout(() => {
       resolve({
@@ -15,8 +13,8 @@ export const getData = (page: number, pageSize: number = 10) => {
           id: `${page}-${index + 1}`,
           name: `${page}-${index + 1}`,
         })),
-        total,
+        total: 102,
       });
     }, 1000);
   });
-}
+};

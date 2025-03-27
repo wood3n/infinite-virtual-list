@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { AutoSizer, List, ListRowRenderer, type ScrollParams } from 'react-virtualized';
+import { useEffect, useRef, useState } from "react";
+import { AutoSizer, List, ListRowRenderer, type ScrollParams } from "react-virtualized";
 
-import { getData, type Data } from '../mock';
+import { getData, type Data } from "../mock";
 
 const Demo = () => {
   const [hasMore, setHasMore] = useState(false);
@@ -24,13 +24,13 @@ const Demo = () => {
         setHasMore(newList.length < res.total);
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     loadMore(pageRef.current);
-  }, [])
+  }, []);
 
   const handleScroll = ({ clientHeight, scrollHeight, scrollTop }: ScrollParams) => {
     if (hasMore && !loading && scrollHeight - rowHeight - scrollTop <= clientHeight) {
@@ -44,37 +44,23 @@ const Demo = () => {
 
     if (hasMore && isLast) {
       return (
-        <div key={key} style={{...rowStyle, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div key={key} style={{ ...rowStyle, display: "flex", justifyContent: "center", alignItems: "center" }}>
           加载更多中..
         </div>
       );
     }
 
     return (
-      <div
-        key={key}
-        style={{...rowStyle, padding: 8 }}
-      >
-        <div style={{ border: '1px solid #000', padding: 8 }}>
-          {list[rowIndex]?.name}
-        </div>
+      <div key={key} style={{ ...rowStyle, padding: 8 }}>
+        <div style={{ border: "1px solid #000", padding: 8 }}>{list[rowIndex]?.name}</div>
       </div>
     );
   };
 
   return (
-    <div style={{ height: 600, width: 600, padding: 16, border: '1px solid #000' }}>
+    <div style={{ height: 600, width: 600, border: "1px solid #000" }}>
       <AutoSizer>
-        {({ width, height }) => (
-          <List
-            width={width}
-            height={height}
-            rowCount={rowCount}
-            rowHeight={60}
-            rowRenderer={renderRow}
-            onScroll={handleScroll}
-          />
-        )}
+        {({ width, height }) => <List width={width} height={height} rowCount={rowCount} rowHeight={60} rowRenderer={renderRow} onScroll={handleScroll} />}
       </AutoSizer>
     </div>
   );
